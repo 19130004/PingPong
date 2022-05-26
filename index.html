@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style>
     body {
@@ -23,11 +26,43 @@
         margin: 50px auto;
         position: relative;
     }
+
+    .guide {
+        color: #fff;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .guide span {
+        font-size: 30px;
+    }
+
+    .guide ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        line-height: 35px;
+    }
 </style>
 
 <body>
     <div class="main">
+        <div class="guide">
+            Hướng dẫn chơi:
+            <i class="far fa-question-circle"></i>
+            <ul>
+                <li> Sử dụng phím <span>← →</span> để điều khiển 1 thanh trượt sang trái hoặc sang phải để đỡ bóng thay
+                    đổi.</li>
+                <li>Nhiệm vụ của người chơi là phải phá vỡ toàn bộ viên gạch để dành chiến thắng.</li>
+                <li>Người chơi có 5 cơ hội chơi, mỗi lần để bóng qua khỏi thanh trượt thì lượt thì một lượt chơi sẽ bị
+                    mất.</li>
+                <li>Nếu chưa phá hết gạch mà hết 5 lượt chơi thì trò chơi sẽ kết thúc. Ngược lại nếu người chơi phá hết
+                    toàn bộ số gạch có trong màn chơi thì sẽ chiến thắng màn đó.</li>
+            </ul>
+
+        </div>
         <div class="container">
+
             <canvas id="pingpong" width="450" height="500"></canvas>
         </div>
     </div>

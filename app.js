@@ -11,7 +11,7 @@ let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
 let GAME_OVER = false;
-const MAX_LEVEL = 10;
+const MAX_LEVEL = 6;
 const BALL_RADIUS = 10;
 
 
@@ -262,7 +262,7 @@ function ballBarrierCollision() {
             let b = barriers[r][c];
             // if the brick isn't broken
             if (b.status) {
-                if (ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + brick.height) {
+                if (ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + barrier.width && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + barrier.height) {
                     ball.dy = - ball.dy;
                 }
             }
@@ -275,7 +275,7 @@ function ballBarrierCollision2() {
             let b = barriers[r][c];
             // if the brick isn't broken
             if (b.status) {
-                if (ball2.x + ball2.radius > b.x && ball2.x - ball2.radius < b.x + brick.width && ball2.y + ball2.radius > b.y && ball2.y - ball2.radius < b.y + brick.height) {
+                if (ball2.x + ball2.radius > b.x && ball2.x - ball2.radius < b.x + barrier.width && ball2.y + ball2.radius > b.y && ball2.y - ball2.radius < b.y + barrier.height) {
                     ball2.dy = - ball2.dy;
                 }
             }
@@ -349,7 +349,7 @@ const barrier = {
     column: 3,
     width: 55,
     height: 20,
-    offSetLeft: 20,
+    offSetLeft: 100,
     offSetTop: 20,
     marginTop: brick.marginTop + brick.height * brick.row + brick.offSetTop,
     fillColor: "red",
@@ -361,7 +361,7 @@ function createBarrier() {
         barriers[r] = [];
         for (let c = 0; c <= barrier.column; c++) {
             barriers[r][c] = {
-                x: c * (canvas.width - barrier.width) / 2,
+                x: c * (barrier.offSetLeft + barrier.width) + barrier.offSetLeft,
                 y: r * (barrier.offSetTop + barrier.height) + barrier.offSetTop + barrier.marginTop,
                 status: true,
             }
@@ -381,6 +381,7 @@ function drawBarriers() {
         }
     }
 }
+
 
 
 function showGameStats(text, textX, textY, text1, text1X, text1Y) {
@@ -443,6 +444,23 @@ function update() {
     levelUp();
 
 }
+var rotate;
+function rotateCanvas() {
+     rotate= setInterval(function () {
+
+        canvas.style.transform += 'rotate(90deg)';
+        canvas.style.transformOrigin = 'center';
+        canvas.style.transition = 'all 1s';
+        canvas.style.transitionTimingFunction = 'ease-in-out';
+        canvas.style.transitionDelay = '0s';
+        canvas.style.transitionDuration = '1s';
+        canvas.style.transitionProperty = 'all';
+    }, 10000)
+   
+}
+function stopRotateCanvas() {
+    clearInterval(rotate);
+}
 
 function levelUp() {
     let isLevelDone = true;
@@ -457,11 +475,14 @@ function levelUp() {
 
     if (isLevelDone) {
         LEVEL++;
-        if (LEVEL >= MAX_LEVEL) {
+        if (LEVEL > MAX_LEVEL) {
+            alert('YOU WIN');
             GAME_OVER = true;
             return;
         }
-        if (LEVEL ==2) {
+       
+        if (LEVEL == 2) {
+       
             brick.row = 3;
             brick.column = 5;
             brick.offSetLeft = 20;
@@ -470,7 +491,26 @@ function levelUp() {
             brick.live = 2;
         }
         if (LEVEL == 3) {
-            brick.row = 4;
+            brick.row = 3;
+            barrier.row = 1;
+            barrier.column = 3;
+            barrier.offSetLeft = 60;
+            barrier.offSetTop = 20;
+            barrier.width = 65;
+            barrier.marginTop = brick.marginTop + brick.height * brick.row + brick.offSetTop + 80;
+        }
+
+
+
+        if (LEVEL == 4) {
+            brick.row = 3;
+            brick.row = 3;
+            barrier.row = 1;
+            barrier.column = 3;
+            barrier.offSetLeft = 60;
+            barrier.offSetTop = 20;
+            barrier.width = 65;
+            barrier.marginTop = brick.marginTop + brick.height * brick.row + brick.offSetTop + 80;
             movePaddle = function () {
                 if (key.keyright && paddle.x > 0) {
                     paddle.x -= paddle.dx;
@@ -481,24 +521,28 @@ function levelUp() {
             }
             brick.live = 3;
         }
-        if (LEVEL == 4) {
-            brick.row = 3;
-            barrier.row = 1;
-            barrier.column = 3;
-            barrier.offSetLeft = 20;
-            barrier.offSetTop = 20;
-            barrier.marginTop = brick.marginTop + brick.height * brick.row + brick.offSetTop + 40;
 
-        }
         if (LEVEL == 5) {
+            brick.row = 3;
+            movePaddle = function () {
+                if (key.keyright && paddle.x > 0) {
+                    paddle.x -= paddle.dx;
+                }
+                else if (key.keyleft && paddle.x < canvas.width - paddle.width) {
+                    paddle.x += paddle.dx;
+                }
+            }
+            barrier.row = 0;
+            rotateCanvas();
+        }
+        if (LEVEL == 6) {
+            stopRotateCanvas();
+            canvas.style.transform = 'rotate(0deg)';
             brick.row = 4;
             brick.column = 5;
             brick.offSetLeft = 20;
             brick.offSetTop = 20;
             brick.marginTop = 40;
-            barrier.row = 1;
-            barrier.column = 3;
-            barrier.marginTop = brick.marginTop + brick.height * brick.row + brick.offSetTop + 40;
             ball2.created = true;
         }
         createBricks();
