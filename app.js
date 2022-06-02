@@ -6,7 +6,7 @@ const PADDLE_HEIGHT = 20;
 const PADDLE_MARGIN_BOTTOM = 50;
 const PADDLE_X = (canvas.width - PADDLE_WIDTH) / 2;
 const PADDLE_Y = canvas.height - PADDLE_HEIGHT - PADDLE_MARGIN_BOTTOM;
-let LIFE = 20;
+let LIFE = 10;
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
@@ -571,3 +571,27 @@ loop();
 
 
 
+const btnPause = document.getElementById("btn-pause");
+btnPause.addEventListener("click", function (){
+    var gameBrightness = 10;
+    var pause = confirm("Bạn tạm dừng game. Bấm Ok để tiếp tục");
+
+    if (pause == false) {
+        //Didn't click on OK
+        var options = confirm(
+
+        );
+
+        if (options == true) {
+            //Clicked on OK
+            ReDopause();
+            return;
+        } else {
+            //Didn't click on OK
+            brightness = Math.floor(Math.random() * 20);
+            document.getElementById("brightness").innerHTML = brightness;
+            ReDopause();
+            return;
+        }}}
+
+);

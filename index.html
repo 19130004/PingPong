@@ -23,7 +23,7 @@
         align-items: center;
         width: 100%;
         height: 100%;
-        margin: 50px auto;
+        margin: 30px  auto auto 100px;
         position: relative;
     }
 
@@ -43,6 +43,52 @@
         margin: 0;
         line-height: 35px;
     }
+    .container .btn-pause {
+  background-color: #c47135;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1em;
+  font-size: 22px;
+  line-height: 1em;
+  margin: 0px 0 40px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.container .btn-pause:before, .container .btn-pause:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.container .btn-pause:before {
+  border-color: #c47135;
+  border-top-width: 2px;
+  left: 0px;
+  top: -5px;
+}
+.container .btn-pause:after {
+  border-bottom-width: 2px;
+  border-color: #c47135;
+  bottom: -5px;
+  right: 0px;
+}
+.container .btn-pause:hover, .container .btn-pause.hover {
+  background-color: #c47135;
+}
+.container .btn-pause:hover:before, .container .btn-pause.hover:before, .container .btn-pause:hover:after, .container .btn-pause.hover:after {
+  height: 100%;
+  width: 100%;
+}
 </style>
 
 <body>
@@ -64,6 +110,7 @@
         <div class="container">
 
             <canvas id="pingpong" width="450" height="500"></canvas>
+            <button id="btn-pause" class="btn-pause">Pause</button>
         </div>
     </div>
     <script src="app.js"></script>
